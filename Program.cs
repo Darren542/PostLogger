@@ -5,8 +5,10 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") 
-?? throw new InvalidOperationException("Connection string not found.");
+// var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") 
+// ?? throw new InvalidOperationException("Connection string not found.");
+
+var connectionString = "DataSource=SaveLog.db;Cache=Shared";
 
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlite(connectionString));
