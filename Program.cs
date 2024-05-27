@@ -41,4 +41,19 @@ app.MapControllers();
 
 app.MapGet("/", () => "Hello, world!");
 
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    try
+    {
+        var context = services.GetRequiredService<AppDbContext>();
+        context.Database.Migrate();
+    }
+    catch (Exception ex)
+    {
+        // Log or handle the exception as needed
+        Console.WriteLine($"An error occurred while migrating the database: {ex.Message}");
+    }
+}
+
 app.Run();
